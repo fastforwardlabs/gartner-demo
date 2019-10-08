@@ -1,3 +1,5 @@
+#install.packages("geosphere")
+
 #NOTE: In CDP find the HMS warehouse directory and external table directory by browsing to:
 # Environment -> <env name> ->  Data Lake Cluster -> Cloud Storage
 # copy and paste the external location to the config setting below.
@@ -21,8 +23,7 @@ library(dplyr)
 spark_home_set("/etc/spark/")
 
 config <- spark_config()
-config$spark.hadoop.fs.s3a.aws.credentials.provider  <- "org.apache.hadoop.fs.s3a.AnonymousAWSCredentialsProvider"
-
+#config$spark.hadoop.fs.s3a.aws.credentials.provider  <- "org.apache.hadoop.fs.s3a.AnonymousAWSCredentialsProvider"
 config$spark.executor.memory <- "16g"
 config$spark.executor.cores <- "4"
 config$spark.driver.memory <- "6g"
@@ -30,7 +31,7 @@ config$spark.executor.instances <- "5"
 config$spark.dynamicAllocation.enabled  <- "false"
 #config$spark.hadoop.fs.s3a.metadatastore.impl <- "org.apache.hadoop.fs.s3a.s3guard.NullMetadataStore"
 #config$spark.sql.catalogImplementation <- "in-memory"
-#config$spark.yarn.access.hadoopFileSystems <- "s3a://ml-field/demo/flight-analysis/"
+config$spark.yarn.access.hadoopFileSystems <- "s3a://ml-field/demo/flight-analysis/"
 
 sc <- spark_connect(master = "yarn-client", config=config)
 

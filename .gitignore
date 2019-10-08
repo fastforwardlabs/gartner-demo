@@ -1,3 +1,5 @@
 R/*
 .*
 !.gitignore
+derby.log
+metastore_db

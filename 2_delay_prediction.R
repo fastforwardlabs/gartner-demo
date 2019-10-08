@@ -14,12 +14,13 @@ library(dplyr)
 ## Configure cluster
 spark_home_set("/etc/spark/")
 config <- spark_config()
-config$spark.hadoop.fs.s3a.aws.credentials.provider  <- "org.apache.hadoop.fs.s3a.AnonymousAWSCredentialsProvider"
+#config$spark.hadoop.fs.s3a.aws.credentials.provider  <- "org.apache.hadoop.fs.s3a.AnonymousAWSCredentialsProvider"
 config$spark.executor.memory <- "16g"
 config$spark.executor.cores <- "4"
 config$spark.driver.memory <- "6g"
 config$spark.executor.instances <- "5"
 config$spark.dynamicAllocation.enabled  <- "false"
+config$spark.yarn.access.hadoopFileSystems <- "s3a://ml-field/demo/flight-analysis/"
 
 sc <- spark_connect(master = "yarn-client", config=config)
 
