@@ -7,13 +7,12 @@
 if ( not os.path.exists('/etc/hadoop/conf/hive-site.xml')):
   !cp /home/cdsw/utils/hive-site.xml /etc/hadoop/conf/
 
-  
-#from __future__ import print_function
-
 import sys
 import os
 import time
 import copy
+import pandas as pd
+
 
 sys.path.append("/home/cdsw/") 
 from utils.auger_api import AugerAPI
@@ -56,18 +55,12 @@ trials_total_count = 20
 augerAPI.create_trial_search(trials_total_count=trials_total_count, search_space=search_space)
 next_trials = augerAPI.continue_trial_search(trials_limit=4)
 
-
-data = spark.read.format("libsvm").load("/home/cdsw/optimizer_search/sample_libsvm_data.txt")
-#sample_size = 50000
-#num_flights = spark.sql("SELECT COUNT(*) FROM `default`.`flights`").count()
-#sample_ratio = sample_size / num_flights
-
-flights_DF = spark.sql("SELECT * FROM `default`.`flights`").sample(.004).toPandas()
+flights_DF = spark.sql("SELECT * FROM `default`.`flights`").limit(50000).toPandas()
 
 labelIndexer = StringIndexer(inputCol="label", outputCol="indexedLabel").fit(data)
 featureIndexer = VectorIndexer(inputCol="features", outputCol="indexedFeatures", maxCategories=4).fit(data)
 
-(training_data, test_data) = data.randomSplit([0.8, 0.2])
+(training_data, test_data) = flights_DF.randomSplit([0.8, 0.2])
 
 print("Start execute trials: %s"%next_trials)
 trials_history = []

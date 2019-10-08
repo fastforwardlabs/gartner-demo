@@ -1,4 +1,4 @@
-!pip3 install tpot xgboost
+#!pip3 install tpot xgboost
 
 #NOTE: In CDP find the HMS warehouse directory and external table directory by browsing to:
 # Environment -> <env name> ->  Data Lake Cluster -> Cloud Storage
