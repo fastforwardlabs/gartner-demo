@@ -2,7 +2,7 @@ from flask import Flask, request, render_template
 import pickle
 import numpy as np
 
-app = Flask(__name__)
+app= Flask(__name__,template_folder='10_flask_app/flask-app/templates/')
 
 @app.route('/')
 def home():
@@ -18,7 +18,7 @@ def get_delay():
         day_of_week = result['day_of_week']
         dep_hour = result['dep_hour']
 
-        pkl_file = open('cat', 'rb')
+        pkl_file = open('/home/cdsw/models/cat', 'rb')
         index_dict = pickle.load(pkl_file)
         cat_vector = np.zeros(len(index_dict))
         
@@ -45,7 +45,7 @@ def get_delay():
         
         pkl_file = open('/home/cdsw/models/logmodel.pkl', 'rb')
         logmodel = pickle.load(pkl_file)
-        prediction = logmodel.predict(cat_vector)
+        prediction = logmodel.predict([cat_vector])
         
         return render_template('result.html',prediction=prediction)
 
@@ -54,5 +54,4 @@ HTML("<a href='https://{}.{}'>APP URL</a>".format(os.environ['CDSW_ENGINE_ID'],o
       
     
 if __name__ == '__main__':
-	app.debug = True
-	app.run(host=os.environ['CDSW_IP_ADDRESS'], port=int(os.environ['CDSW_PUBLIC_PORT']))
+	app.run(host="127.0.0.1", port=8100)
