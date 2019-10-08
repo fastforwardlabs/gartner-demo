@@ -36,6 +36,21 @@ spark.sql("SHOW databases").show()
 spark.sql("USE default")
 spark.sql("SHOW tables").show()
 
+#spark.sql("SELECT COUNT(*) FROM `default`.`flights`").show()
+spark.sql("SELECT * FROM `default`.`flights` LIMIT 10").take(5)
+spark.sql("SELECT DepDelay FROM `default`.`flights` WHERE DepDelay > 0.0").take(5)
+
+#spark.sql("SELECT COUNT(*) FROM `default`.`airports`").show()
+spark.sql("SELECT * FROM `default`.`airports` LIMIT 10").show()
+
+
+
+
+
+
+
+
+
 #spark.sql("DROP TABLE flights").show()
 statement = '''
 CREATE EXTERNAL TABLE IF NOT EXISTS `default`.`flights` (
@@ -73,9 +88,6 @@ STORED AS TextFile
 LOCATION 's3a://ml-field/demo/flight-analysis/data/flights_csv/'
 '''
 #spark.sql(statement) 
-#spark.sql("SELECT COUNT(*) FROM `default`.`flights`").show()
-spark.sql("SELECT * FROM `default`.`flights` LIMIT 10").take(5)
-spark.sql("SELECT DepDelay FROM `default`.`flights` WHERE DepDelay > 0.0").show()
 
 #spark.sql("DROP TABLE airports").show()
 statement = '''
@@ -92,8 +104,6 @@ STORED AS TextFile
 LOCATION 's3a://ml-field/demo/flight-analysis/data/airports_csv/'
 '''
 #spark.sql(statement) 
-#spark.sql("SELECT COUNT(*) FROM `default`.`airports`").show()
-spark.sql("SELECT * FROM `default`.`airports` LIMIT 10").show()
 
 
 #spark.sql("DROP TABLE airports_extended").show()
@@ -116,12 +126,6 @@ STORED AS TextFile
 LOCATION 's3a://ml-field/demo/flight-analysis/data/airports-extended/'
 '''
 #spark.sql(statement) 
-#spark.sql("SELECT COUNT(*) FROM `default`.`airports_extended`").show()
-#spark.sql("SELECT * FROM `default`.`airports_extended` LIMIT 10").take(5)
-#spark.sql("SELECT coordinates FROM `default`.`airports_extended`").show()
-
-
-
 
     
 #spark.stop()
