@@ -40,7 +40,7 @@ enc_name = 'lr_enc.pkl'
 #try data set_size via Experiments
 if len (sys.argv) == 2:
   if sys.argv[1].split(sep='=')[0]=='set_size' and isinstance(float(sys.argv[1].split(sep='=')[1]), float):
-    set_size = float(sys.argv[1].split(sep='=')[1])
+    set_size = int(sys.argv[1].split(sep='=')[1])
   else:
     sys.exit("Invalid Arguments passed to Experiment")
 else:

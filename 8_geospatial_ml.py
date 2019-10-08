@@ -1,4 +1,4 @@
-# !pip3 install scikit-gstat
+#!pip3 install scikit-gstat altair vega_datasets
 
 #Temporary workaround for MLX-975
 #In utils/hive-site.xml edit hive.metastore.warehouse.dir and hive.metastore.warehouse.external.dir based on settings in CDP Data Lake -> Cloud Storage
@@ -110,5 +110,5 @@ airports_with_delays = pd.merge(flights_delayed, airports, left_on=['Origin'], r
 # Investigate the spatial dependence of propensity to delay
 # with a variogram. The variogram doesn't show strong evidence
 # of spatial dependence.
-import skgstat
-v = skgstat.Variogram(np.vstack([airports_with_delays["long"], airports_with_delays["lat"]]).transpose(), delayed_fraction).plot()
+#import skgstat
+#v = skgstat.Variogram(np.vstack([airports_with_delays["long"], airports_with_delays["lat"]]).transpose(), delayed_fraction).plot()
