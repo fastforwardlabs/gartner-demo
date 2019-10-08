@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 #Read the data into a pandas Dataframe
-df = pd.read_csv('/home/cdsw/170_flask_app/ml-flask-tutorial/sample_data.csv')
+df = pd.read_csv('/home/cdsw/10_flask_app/sample_data.csv')
 
 df.head(10)
 
