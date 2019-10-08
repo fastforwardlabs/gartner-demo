@@ -1,13 +1,15 @@
+#!pip3 install gunicorn 
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-get_ipython().magic('matplotlib inline')
 
 #Read the data into a pandas Dataframe
-df = pd.read_csv('sample_data.csv')
+df = pd.read_csv('/home/cdsw/170_flask_app/ml-flask-tutorial/sample_data.csv')
 
 df.head(10)
+
 
 # In our sample data, we have data about airline delays, with the following columns: 
 # * ORIGIN (Origin Airport)
@@ -18,6 +20,7 @@ df.head(10)
 # * ARR_DELAY (Arrival Delay in minutes)
 # 
 # We will build a model to predict whether a flight is delayed more than 5 minutes or not, given the ORIGIN, DEST and UNIQUE_CARRIER
+
 
 # First, we transform ARR_DELAY into a 1/0 format for Delay/No Delay
 # For this we are going to use the Python Lambda function on the dataframe
@@ -73,9 +76,10 @@ print('Accuracy: '+str(accuracy))
 # The model has an overall accuracy of 0.61, which is not too bad given the limited dataset on which we trained the model. We will not try to improve on the model here, as that is not the objective of this tutorial!
 
 # ## Saving the Model using Pickle
+
 import pickle
 
-with open('logmodel.pkl', 'wb') as fid:
+with open('/home/cdsw/models/logmodel.pkl', 'wb') as fid:
     pickle.dump(logmodel, fid,2)  
 
 #Save a dictionary of the index keys to make the dummy variables out of user input
@@ -87,3 +91,5 @@ index_dict = dict(zip(cat.columns,range(cat.shape[1])))
 #Save the index_dict into disk
 with open('cat', 'wb') as fid:
     pickle.dump(index_dict, fid,2)  
+
+

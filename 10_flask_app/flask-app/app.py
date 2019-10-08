@@ -43,13 +43,16 @@ def get_delay():
         except:
             pass
         
-        pkl_file = open('logmodel.pkl', 'rb')
+        pkl_file = open('/home/cdsw/models/logmodel.pkl', 'rb')
         logmodel = pickle.load(pkl_file)
         prediction = logmodel.predict(cat_vector)
         
         return render_template('result.html',prediction=prediction)
 
+from IPython.display import Javascript, HTML
+HTML("<a href='https://{}.{}'>APP URL</a>".format(os.environ['CDSW_ENGINE_ID'],os.environ['CDSW_DOMAIN']))
+      
     
 if __name__ == '__main__':
 	app.debug = True
-	app.run()
+	app.run(host=os.environ['CDSW_IP_ADDRESS'], port=int(os.environ['CDSW_PUBLIC_PORT']))
